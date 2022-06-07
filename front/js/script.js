@@ -1,10 +1,10 @@
-const scriptName = 'scripts.js';
-
 /*
   The script.js  goal is to fetch a list of products 
   and displayed them in the index page (items section).
 */
 
+
+const scriptName = 'scripts.js';
 
 
 
@@ -209,12 +209,12 @@ function displayAllProducts ()
       return (promise_fetch);
 }
 
+
+
 /* ===============================================================================  */
 
 trace_line(level_1);
 trace_msg (level_1, scriptName, 'main', 'begin');
-
 displayAllProducts ();
-
 trace_msg (level_1, scriptName, 'main', 'end');
 
