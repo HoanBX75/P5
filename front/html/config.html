@@ -1,0 +1,161 @@
+<html lang="fr">
+<head>
+    <title>Kanap Config</title>
+    <meta charset="utf-8">
+    <link href="../css/style.css" rel="stylesheet" />
+    <link href="../css/cart.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <div class="limitedWidthBlockContainer menu">
+            <div class="limitedWidthBlock">
+              <a href="./index.html">
+                <img class="logo" src="../images/logo.png" alt="Logo de l'entreprise">
+              </a>
+              <nav>
+                <ul>
+                  <a href="./index.html"><li>Accueil</li></a>
+                  <a href="./cart.html"><li>Panier</li></a>
+                </ul>
+              </nav>
+            </div>
+    </header>
+
+
+    <main class="limitedWidthBlockContainer">
+        <div class="limitedWidthBlock" id="limitedWidthBlock">
+          <div class="cartAndFormContainer" id="cartAndFormContainer">
+            <h1>Kanap config </h1>
+   
+            <article class="cart__item" data-id="{product-ID}" data-color="{product-color}">
+ 
+                <div class="cart__item__content">
+                  <div class="cart__item__content__description">
+                    <h3>MANAGE PANIER</h3>
+                    <p>Statut</p>
+                   
+                </div>
+                <div class="cart__item__content__settings">
+
+<!-- =================================================================================================== -->
+                
+                    <div class="cart__item__content__settings__delete" id="resetPanier">
+                      <p class="ResetConfig"><strong>RESET</strong></p>
+                    </div>
+                    <div class="cart__item__content__settings__delete" id="dumpPanier">
+                        <p class="DumpConfig"><strong>DUMP</strong></p>
+                    </div>
+
+<!-- =================================================================================================== -->
+                    <div class="cart__item__content__settings__delete" id="addPanier">
+                        <br>
+                        <p class="AddPanier"><strong>ADD</strong></p>
+                    </div>                      
+                    <div class="cart__item__content__settings__delete" id="addPanierSettings">
+                        id <input type="text" name="idname" id="prod_id" value="id..">
+                        <br>
+                        color 
+                        <select name="color-select" id="prod_color">
+                            <option value="">--SVP, choisissez une couleur --</option>
+                            <option value="vert">vert</option>
+                            <option value="blanc">blanc</option> -->
+                        </select>
+                        <br>
+                        quantité  <input type="number"  min="1" max="100" value="1" name="quantité" id="prod_quantite">
+                        <br>
+                        prix <input type="number" name="prix" id="prod_prix" value="100">
+                        <br>
+                        name <input type="text" name="name" id="prod_name" value="product name...">
+                        <br>
+                        description <input type="text" name="description" id="prod_description" value="product desc...">
+                        <br>
+                        image_src <input type="text" name="image_src" id="prod_imageSrc" value="product image_src ...">
+                        <br>
+                        image_alt <input type="text" name="image_alt" id="prod_imageAlt" value="product image_alt...">                      
+                    </div>          
+
+<!-- =================================================================================================== -->
+                    <div class="cart__item__content__settings__delete" id="findPanier">
+                     <br>
+                     <p class="FindPanier"><strong>FIND</strong></p>
+                    </div>                      
+                    <div class="cart__item__content__settings__delete" id="FindPanierSettings">
+                        id <input type="text" name="find_prod_id" id="find_prod_id" value="id..">
+                        <br>
+                        color 
+                        <select name="color-select" id="find_prod_color">
+                            <option value="">--SVP, choisissez une couleur --</option>
+                            <option value="vert">vert</option>
+                            <option value="blanc">blanc</option> -->
+                        </select>
+                      <br>
+                    result = <p id="find_result">xx</p>
+                    </div>
+<!-- =================================================================================================== -->
+                    <div class="cart__item__content__settings__delete" id="removePanier">
+    <br>
+    <p class="RemovePanier"><strong>REMOVE</strong></p>
+                    </div>                      
+                    <div class="cart__item__content__settings__delete" id="RemovePanierSettings">
+       id <input type="text" name="remove_prod_id" id="remove_prod_id" value="id..">
+       <br>
+       color 
+       <select name="color-select" id="remove_prod_color">
+           <option value="">--SVP, choisissez une couleur --</option>
+           <option value="vert">vert</option>
+           <option value="blanc">blanc</option> -->
+       </select>
+     <br>
+   result = <p id="remove_result">xx</p>
+                    </div>
+
+<!-- =================================================================================================== -->
+<br>
+<div class="cart__item__content__settings__delete"  id="ListPanier">
+    <p class="List Panier"><strong>LIST</strong></p>
+</div>
+<div class="cart__item__content__settings__delete" id="ListPanierSettings">
+  
+    <p>Nombre d'élément dans le panier  : </p>
+    <input type="number" class="ListPanier" id="id_list_prods_number" name="ListPanierQuantity"  value="0">
+</div>
+ <!-- =================================================================================================== -->
+               
+                </div>
+               
+
+
+  
+            </article> 
+  
+              
+              <article class="cart__item" data-id="{product-ID}" data-color="{product-color}">
+ 
+
+
+                  <div class="cart__item__content">
+                    <div class="cart__item__content__description">
+                      <h3>Config Site </h3>
+                      <p>Status</p>
+                      <p>Click Reset pour remettre à Zero le Panier </p>
+                    </div>
+                    <div class="cart__item__content__settings">
+                      <div class="cart__item__content__settings__quantity">
+                        <p>Nombre d'élément dans le panier  : </p>
+                        <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42">
+                      </div>
+                      <div class="cart__item__content__settings__delete">
+                        <p class="xdeleteItem">Reset</p>
+                      </div>
+                    </div>
+
+                </div>
+              </article> 
+  
+
+          </div>
+        </div>
+      </main>
+      <script src="../js/config.js"></script>
+</body>
+</html>
