@@ -228,6 +228,66 @@ function cb_addToCart (event)
 
 
 
+
+/*
+    -------------------------------------------------------
+    Function name : dom_setProduct ()
+    Parameter 
+       id : product id  
+       price : product price
+       altTxt, colors, description,imageUrl, name ... 
+    Description :  function does the following :  
+                        -  writes a product item in the product.html page 
+in the article 
+
+          <article>
+            <div class="item__img">
+              <!-- <img src="../images/logo.png" alt="Photographie d'un canapé"> -->
+            </div>
+
+            ...
+          </article>
+
+    -------------------------------------------------------
+*/
+
+function dom_setProduct(id, altTxt, colors, description,imageUrl, name, price)
+{
+    const  funcName = "dom_setProduct()";
+    
+    trace_object (level_1, scriptName, funcName, 'Product id  ', id);
+    trace_object (level_1, scriptName, funcName, 'prod_id  ', prod_id);
+    /*  Image */ 
+     let item__img = document.querySelector("div.item__img");
+     let new_img = document.createElement('img');
+     new_img.setAttribute('src', imageUrl);
+     new_img.setAttribute('alt', altTxt);
+     item__img.append (new_img);
+
+     /*  Price */
+    let item__price = document.getElementById("price");
+    item__price.innerText = price;
+
+     /*  Description  */
+     let item__description = document.getElementById("description");
+     item__description.innerText = description;
+
+     /* colors */ 
+     let item__colors = document.getElementById("colors");
+
+    for (let color of colors )
+    {
+        trace_object (level_1, scriptName, funcName, 'Color', color);
+    
+     let new_color_option = document.createElement('option');
+     new_color_option.setAttribute('name', color);
+     new_color_option.innerText = color; 
+     item__colors.append (new_color_option);
+    }
+
+}
+
+
 /*
     -------------------------------------------------------
     Function name : http_getProductById ()
@@ -299,65 +359,6 @@ function http_getProductById (prod_id)
       
     
       trace_object (level_1, scriptName, funcName, 'Request sent, Promise ', prom);
-}
-
-
-/*
-    -------------------------------------------------------
-    Function name : dom_setProduct ()
-    Parameter 
-       id : product id  
-       price : product price
-       altTxt, colors, description,imageUrl, name ... 
-    Description :  function does the following :  
-                        -  writes a product item in the product.html page 
-in the article 
-
-          <article>
-            <div class="item__img">
-              <!-- <img src="../images/logo.png" alt="Photographie d'un canapé"> -->
-            </div>
-
-            ...
-          </article>
-
-    -------------------------------------------------------
-*/
-
-function dom_setProduct(id, altTxt, colors, description,imageUrl, name, price)
-{
-    const  funcName = "dom_setProduct()";
-    
-    trace_object (level_1, scriptName, funcName, 'Product id  ', id);
-    trace_object (level_1, scriptName, funcName, 'prod_id  ', prod_id);
-    /*  Image */ 
-     let item__img = document.querySelector("div.item__img");
-     let new_img = document.createElement('img');
-     new_img.setAttribute('src', imageUrl);
-     new_img.setAttribute('alt', altTxt);
-     item__img.append (new_img);
-
-     /*  Price */
-    let item__price = document.getElementById("price");
-    item__price.innerText = price;
-
-     /*  Description  */
-     let item__description = document.getElementById("description");
-     item__description.innerText = description;
-
-     /* colors */ 
-     let item__colors = document.getElementById("colors");
-
-    for (let color of colors )
-    {
-        trace_object (level_1, scriptName, funcName, 'Color', color);
-    
-     let new_color_option = document.createElement('option');
-     new_color_option.setAttribute('name', color);
-     new_color_option.innerText = color; 
-     item__colors.append (new_color_option);
-    }
-
 }
 
 
