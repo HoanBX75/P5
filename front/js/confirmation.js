@@ -54,8 +54,10 @@ if (param_orderid == localStorage_orderid)
     
     let cmd =   getCommandeFromLocalStorage ();
     let msg =  `<br> <br>  A bientôt  ${cmd.firstName} !` ;
-
-    const nbOrder = document.getElementById("orderId");
+    /*
+     msg =  `<br> <br>  Un mail de confirmation est envoyé à  ${cmd.firstName} !` ;
+    */
+     const nbOrder = document.getElementById("orderId");
     nbOrder.innerHTML = param_orderid + msg ;
 
     

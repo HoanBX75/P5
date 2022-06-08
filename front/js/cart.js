@@ -110,7 +110,8 @@ function addlistenerToForm() {
             document.getElementById("cityErrorMsg").innerHTML = "";
         }
 
-        if(!regName.test(l_formAdress)){
+        let regAdresse = /^[a-zA-Z.0123456789 ]+$/;
+        if(!regAdresse.test(l_formAdress)){
             if (!valid) l_form_err = l_form_err +",";
             valid = false;
             l_form_err =   l_form_err + "Adresse"; 
