@@ -8,6 +8,7 @@
 */ 
 
 
+
 /* ============================================================================= */
 /*           Kanap Trace functions                                               */ 
 /* ============================================================================= */
@@ -202,17 +203,39 @@ function updateCartItemQuantityFromLocalStorage (item_id, item_color,item_quanti
 
 function setCommandeToLocalStorage (orderId, contact_firstname, contact_lastname)
 {
+    const funcName = "setCommandeToLocalStorage()"; 
     let commande = {
         orderId:orderId,
         firstName:  contact_firstname,
         lastName: contact_lastname
     }
+    trace_object (level_1, scriptName, funcName, 'commande', commande);
     localStorage.setItem( "commande" , JSON.stringify (commande));
 }
 
 function getCommandeFromLocalStorage ()
 {
+    const funcName = "getCommandeFromLocalStorage()"; 
     let s_commande = localStorage.getItem( "commande");
-    return JSON.parse (s_commande);
+    let o_commande = JSON.parse (s_commande);
+    trace_object (level_1, scriptName, funcName, 'commande', o_commande);
+    return o_commande;
 }
+
+
+function getCommandeOrderIdFromLocalStorage ()
+{
+    const funcName = "getCommandeOrderIdFromLocalStorage()"; 
+    let orderId = null;
+    let commande = getCommandeFromLocalStorage ();
+    if (commande == null) {
+        return null;
+    }    
+    else {
+        orderId = commande.orderId;
+    }
+    trace_object (level_1, scriptName, funcName, 'order id ', orderId);
+    return commande.orderId;
+}
+
 

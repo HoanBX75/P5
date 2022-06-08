@@ -11,10 +11,6 @@
 const scriptName = 'cart.js';
 
 
-
-
-
-
 /*
     -------------------------------------------------------
     Function name : addlistenerToForm ()
@@ -98,7 +94,7 @@ function addlistenerToForm() {
         }  
 
         
-        let regEmail = /^[a-zA-Z]+@[a-zA-Z.]+$/;
+        let regEmail = /^[a-zA-Z.]+@[a-zA-Z.]+$/;
         if(!regEmail.test(l_formEmail)){
             l_form_err =   l_form_err + "Email "; 
 
