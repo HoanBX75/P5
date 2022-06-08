@@ -8,6 +8,92 @@
 */ 
 
 
+/* ======================*/
+/* config  LocalStorage */
+/* ===================== */
+
+
+function setConfigToLocalStorage (p_traceLevel, p_api_host, p_api_port)
+{
+    const funcName = "setConfigToLocalStorage()"; 
+    let l_config = {
+        traceLevel: p_traceLevel,
+        api_host:  p_api_host,
+        api_port: p_api_port
+    };
+    /*
+    trace_object (level_1, scriptName, funcName, 'config', l_config);
+    */
+    localStorage.setItem( "config" , JSON.stringify (l_config));
+    return (l_config);
+}
+
+function getConfigFromLocalStorage ()
+{   
+    const funcName = "getConfigFromLocalStorage()"; 
+    let o_config = null;
+    let s_config = localStorage.getItem( "config");
+    
+    
+     if (s_config != null)
+     {
+       /*
+        trace_msg  (level_1, scriptName, funcName, 'config exists ');
+        */
+        o_config = JSON.parse (s_config);
+    
+     }
+     else 
+     {  
+         /*
+        trace_msg  (level_1, scriptName, funcName, 'Create default config ');
+        */
+        let default_traceLevel = 0;
+        let default_api_host   =  'localhost';
+        let default_api_port = 3000;
+        o_config = setConfigToLocalStorage (default_traceLevel,
+                                            default_api_host, 
+                                            default_api_port);
+     }
+
+   /*
+    trace_object (level_1, scriptName, funcName, 'config', o_config);
+   */
+    return (o_config);
+}
+
+
+
+function setConfigTraceLevelToLocalStorage ( p_traceLevel)
+{
+    const funcName = "setConfigTraceLevelToLocalStorage()";
+    /*
+    trace_object (level_1, scriptName, funcName, 'p_traceLevel', p_traceLevel);
+    */
+    let l_config = getConfigFromLocalStorage();
+
+    l_api_host = l_config.api_host ; 
+    l_api_port = l_config.api_port ;
+    l_config = setConfigToLocalStorage (p_traceLevel, l_api_host, l_api_port);
+    /*
+    trace_object (level_1, scriptName, funcName, 'config', l_config);
+    trace_object (level_1, scriptName, funcName, 'current_level', current_level);
+    */
+    current_level = p_traceLevel;
+    return p_traceLevel;
+}
+
+function getConfigTraceLevelFromLocalStorage ()
+{
+    const funcName = "getConfigTraceLevelFromLocalStorage()";
+    let l_config = getConfigFromLocalStorage();
+    let l_traceLevel = l_config.traceLevel;
+ /*    trace_object (level_1, scriptName, funcName, 'traceLevel', l_traceLevel); */ 
+    return l_traceLevel;
+}
+
+
+
 
 /* ============================================================================= */
 /*           Kanap Trace functions                                               */ 
@@ -20,13 +106,15 @@ const level_1 = 1;
 const level_2 = 2; 
 const level_3 = 3; 
 const level_4 = 4;
-
-let current_level = 5;   /* default value is 0 */ 
+/* 
+let current_level =  0;   default value is 0 
+*/ 
 
 
 
 function getTraceLevel  ()
 {
+    let current_level = getConfigTraceLevelFromLocalStorage ();
     return current_level ;
 }
 function trace_function_line(level)
@@ -119,6 +207,24 @@ function getNodeServerURL_Order ()
 /*             LocalStorage functions                                            */ 
 /* ============================================================================= */
 
+/*
+  For Kanap, 
+  the Localstorage is used to store 
+     - cart 
+     - commande  
+     - config 
+        trace_level 
+        api_host 
+        api_port 
+
+*/ 
+
+
+
+/* ================= */
+/* Cart  Storage     */
+/* ================ */
+
 
 function setCartToLocalStorage (cart_items)
 {
@@ -199,7 +305,9 @@ function updateCartItemQuantityFromLocalStorage (item_id, item_color,item_quanti
     trace_object  (level_1, scriptName, funcName, 'cart_items', cart_items);
 }
 
-
+/* ==================*/
+/* commmande storage */
+/* ================= */
 
 function setCommandeToLocalStorage (orderId, contact_firstname, contact_lastname)
 {
@@ -237,5 +345,7 @@ function getCommandeOrderIdFromLocalStorage ()
     trace_object (level_1, scriptName, funcName, 'order id ', orderId);
     return commande.orderId;
 }
+
+
 
 

@@ -1,8 +1,9 @@
 
 const  trace_file = '= config.js : ';
-
+const scriptName = 'config..js';
 
 /* ============================================================================= */
+/*
 function trace_line()
 {
     console.log ('===============================================');
@@ -15,6 +16,8 @@ function trace_object  (trace_where, trace_object )
 {
     console.log (trace_file +  trace_where + ' : ',trace_object  );
 }
+*/
+
 /* ============================================================================= */
 
 function resetConfig (event){
@@ -135,46 +138,26 @@ function dumpPanier (event){
  }
 /* ============================================================================= */
  
- function cb_findPanier (event){
+ function cb_setTraceLevel (event){
+ /*
     trace_line();
-    trace ('cb_findPanier()', 'debut');     
-  
-    let s_cart = localStorage.getItem( "cart");
-    let o_cart_items = JSON.parse (s_cart);
 
+    trace ('cb_setTraceLevel()', 'debut');     
+  */
+    trace_line(level_3);
+    let select_trace_level =  document.getElementById ("select_trace_level"); 
 
-    let prod_id =  document.getElementById ("find_prod_id");
-    let prod_color_select =  document.getElementById ("find_prod_color"); 
-    let find_result = document.getElementById ("find_result");
-    find_result.innerText = "Undefined";
-
-    if (prod_color_select.selectedIndex == 0) 
-    {
-       alert ("SVP, choisissez une couleur");
-       return;
-    }
-    let prod_id_value  = prod_id.value; 
-  
-    let prod_color_value  = prod_color_select.options [prod_color_select.selectedIndex].value;
    
-    trace  ("cb_findPanier : prod_id_value", prod_id_value);
-    trace  ("cb_findPanier : prod_color_value", prod_color_value);
+    let traceLevel_value  = select_trace_level.options [select_trace_level.selectedIndex].value;
+   /*
+    trace  ("cb_setTraceLevel : traceLevel value = ", traceLevel_value);
+   */
+    setConfigTraceLevelToLocalStorage (traceLevel_value);
 
-
-    const  found = findPanierByIdAndColor (o_cart_items, prod_id_value, prod_color_value); 
-  
-    if (found == null ){
-        find_result.innerText = "Not found";
-        trace ('cb_findPanier()   = ' ,  'Not found'); 
-    }
-    else {
-        find_result.innerText = "found";
-        trace ('cb_findPanier()   = ' ,  'Found' + found);
-        trace_object  ("cb_findPanier() found item = ", found);
-    }
-
-    trace ('cb_findPanier()', 'fin');
-    return found;   
+/*
+    trace ('cb_setTraceLevel()', 'fin');
+  */
+    return traceLevel_value;   
  }
 
 
@@ -234,21 +217,25 @@ function dumpPanier (event){
  }
   /* ============================================================================= */
 
-trace_line();
-trace (' ',  'debut');
 
 
+/*
 let elt_reset = document.getElementById ("resetPanier");
 elt_reset.addEventListener ("click", resetConfig);
 let elt_dump = document.getElementById ("dumpPanier");
 elt_dump.addEventListener ("click", dumpPanier);
 let elt_add = document.getElementById ("addPanier");
 elt_add.addEventListener ("click", cb_addPanier);
-let elt_find = document.getElementById ("findPanier");
-elt_find.addEventListener ("click", cb_findPanier);
+*/
+
+let elt_find = document.getElementById ("setTraceLevel");
+elt_find.addEventListener ("click", cb_setTraceLevel);
+
+/*
 let elt_remove = document.getElementById ("removePanier");
 elt_remove.addEventListener ("click", cb_removePanier);
 
 
 trace (' ',  'fin');
 
+*/
