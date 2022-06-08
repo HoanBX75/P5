@@ -1,7 +1,8 @@
 /*
   The product.js  goal is to add an article  to the 
-  cart / or update the quantity  of an existing article in the cart . 
-  The article is based on id and color.
+  cart / or update the quantity  of an existing article in the cart
+  from the product.html page  . 
+  The article is identifed by  and  id and a color.
 */
 
 
@@ -158,7 +159,7 @@ function cb_addToCart (event)
    
     if (prod_id == null ){
         trace_error (level_1, scriptName, funcName, ' bad product_id ', prod_id);
-        alert ('bad product_id');
+        kanap_alert ('bad product_id');
         return;
       
     }
@@ -166,7 +167,7 @@ function cb_addToCart (event)
     {
         if (prod_id == -1) {
             trace_error (level_1, scriptName, funcName, ' bad product_id ', prod_id);
-            alert ('bad product_id');
+            kanap_alert ('bad product_id');
         return;
         }
     }
@@ -190,7 +191,7 @@ function cb_addToCart (event)
    let alert_msg="";
    if (chosen_color == ""  ) {
            alert_msg = alert_msg + "SVP Choisissez une couleur";
-           trace ('cb_addToCart () : ', 'color not chosen ');
+           trace_error (level_1, scriptName, funcName, ' Error: ', 'color not chosen ');
     } 
     
     if (i_chosen_quantity <= 0  || i_chosen_quantity > 100) {
@@ -412,6 +413,7 @@ function displayProduct ()
 
 
    /* 3.  Register addToCart listener */
+
    trace_object (level_1, scriptName, funcName, 'addListener to Button Ajouter au Panier', 'cb_addToCart');
    const btn = document.getElementById("addToCart");
    btn.addEventListener('click', cb_addToCart);

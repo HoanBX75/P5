@@ -108,6 +108,11 @@ function  getNodeServerURL_Product (prod_id)
     return url;
 }
 
+function getNodeServerURL_Order ()
+{
+    let url =   getNodeServerURL() + '/api/products' + '/order'  ; 
+    return url;
+}
 
 /* ============================================================================= */
 /*             LocalStorage functions                                            */ 
@@ -138,9 +143,76 @@ function getCartFromLocalStorage ()
         trace_msg (level_1, scriptName, funcName, 'Cart found in LocalStorage'); 
         cart_items = JSON.parse (s_cart);
     }
-  
-    trace_object  (level_1, scriptName, funcName, 'Cart items  ', cart_items );
+  /*
+    trace_object  (level_4, scriptName, funcName, 'Cart items  ', cart_items );
+    */
     return (cart_items);
 }
 
+
+function getTotalPriceFromLocalStorage ()
+{ 
+    const  funcName = "getTotalPriceFromLocalStorage()";
+    let l_total_price = 0;
+    let l_cart  = getCartFromLocalStorage ();
+    
+    trace_object  (level_1, scriptName, funcName, 'Cart length  ', l_cart.length );
+    for ( let l_cart_item  of  l_cart) {
+            // calculate the total 
+            let l_cart_item_total_price  = l_cart_item.prix *  l_cart_item.quantite;
+            l_total_price = l_total_price + l_cart_item_total_price;
+
+    }
+  
+    trace_object  (level_1, scriptName, funcName, 'l_total_price ', l_total_price );
+    return l_total_price;
+}
+
+
+
+/* ===================== */
+
+function removeCartItemFromLocalStorage (item_id, item_color)
+{
+    const  funcName = "removeCartItemFromLocalStorage()";
+    trace_object (level_1, scriptName, funcName, "item_id item_color ", item_id + '_' + item_color);
+    let old_cart_items = getCartFromLocalStorage ();
+    let new_cart_items = old_cart_items.filter(el => el.color != item_color || el.id != item_id );
+    setCartToLocalStorage (new_cart_items);
+    trace_object  (level_1, scriptName, funcName, "new_cart_items", new_cart_items);
+}
+
+function updateCartItemQuantityFromLocalStorage (item_id, item_color,item_quantity)
+{
+    const  funcName = "updateCartItemQuantityFromLocalStorage()";
+
+    trace_object  (level_1, scriptName, funcName,  "itemid color ",  item_id  +  '_' +  item_color)
+
+    trace_object (level_1, scriptName, funcName,   "item_quantity ", item_quantity);
+
+
+    let cart_items = getCartFromLocalStorage ();
+    let cart_item = cart_items.find(el => el.color == item_color && el.id == item_id );
+    cart_item.quantite = item_quantity;
+    setCartToLocalStorage (cart_items);
+    trace_object  (level_1, scriptName, funcName, 'cart_items', cart_items);
+}
+
+
+
+function setCommandeToLocalStorage (orderId, contact_firstname, contact_lastname)
+{
+    let commande = {
+        orderId:orderId,
+        firstName:  contact_firstname,
+        lastName: contact_lastname
+    }
+    localStorage.setItem( "commande" , JSON.stringify (commande));
+}
+
+function getCommandeFromLocalStorage ()
+{
+    let s_commande = localStorage.getItem( "commande");
+    return JSON.parse (s_commande);
+}
 
