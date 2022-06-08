@@ -1,7 +1,17 @@
 
+/*
+  Script : confirmation.js 
+  The confirmation.js goal is to acknowledge an order defined by 
+  an order id passes as a parameter to the confirmation.html page.
+  The confirmation.html is invoked via an order button of the cart.html page.
+  Ths order id is validated by checking the one that has been in the localStorage 
+  by the cart.js  java script.
+*/ 
+
 
 const scriptName = 'confirmation.js';
 
+/* =======================================================================================  */
 
 /*
     -------------------------------------------------------
@@ -64,9 +74,9 @@ trace_msg (level_1, scriptName, 'main', 'begin');
 handleOrderconfirmation ();
 trace_msg (level_1, scriptName, 'main', 'end');
 
+/* =======================================================================================  */
 
 
 
-// https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/entries
 
 

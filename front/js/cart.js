@@ -1,4 +1,5 @@
 /*
+  Script : cart.js 
   The cart.js  goal is to display  the cart content  
   and display it  in the cart.html page.
   Besides, Three listener handlers : 
@@ -10,6 +11,7 @@
 
 const scriptName = 'cart.js';
 
+/* =======================================================================================  */
 
 /*
     -------------------------------------------------------
@@ -79,41 +81,61 @@ function addlistenerToForm() {
         regName = /^[a-zA-Z]+$/;
          let valid = true;
         if(!regName.test(l_formFirstName)){
+            if (!valid) l_form_err = l_form_err +", ";
             valid = false;
             document.getElementById("firstNameErrorMsg").innerHTML = `"${l_formFirstName} n'est pas valide !"`
-            l_form_err =   l_form_err + "Prénom ";     
+            l_form_err =   l_form_err + "Prénom";     
         }   
+        else {
+            document.getElementById("firstNameErrorMsg").innerHTML = "";
+        }
 
         if(!regName.test(l_formLastName)){
+            if (!valid) l_form_err = l_form_err +", ";
             valid = false;
-            l_form_err =   l_form_err + "Nom ";   
+            l_form_err =   l_form_err + "Nom";   
             document.getElementById("lastNameErrorMsg").innerHTML = `"${l_formLastName} n'est pas valide !"`
         }  
+        else {
+            document.getElementById("lastNameErrorMsg").innerHTML = "";
+        }
 
         if(!regName.test(l_formCity)){
+            if (!valid) l_form_err = l_form_err +",";
             valid = false;
             l_form_err =   l_form_err + "Ville ";  
             document.getElementById("cityErrorMsg").innerHTML = `"${l_formCity} n'est pas valide !"`
         }  
+        else {
+            document.getElementById("cityErrorMsg").innerHTML = "";
+        }
 
         if(!regName.test(l_formAdress)){
+            if (!valid) l_form_err = l_form_err +",";
             valid = false;
-            l_form_err =   l_form_err + "Adresse "; 
+            l_form_err =   l_form_err + "Adresse"; 
             document.getElementById("addressErrorMsg").innerHTML = `"${l_formAdress} n'est pas valide !"`
         }  
+        else {
+            document.getElementById("addressErrorMsg").innerHTML = "";
+        }
 
         
-        let regEmail = /^[a-zA-Z.]+@[a-zA-Z.]+$/;
+        let regEmail = /^[a-zA-Z.0123456789]+@[a-zA-Z.]+$/;
         if(!regEmail.test(l_formEmail)){
-            l_form_err =   l_form_err + "Email "; 
+            if (!valid) l_form_err = l_form_err +", ";
+            l_form_err =   l_form_err + "Email"; 
 
             valid = false;
             document.getElementById("emailErrorMsg").innerHTML = `"${l_formEmail} n'est pas valide !"`
         }  
+        else {
+            document.getElementById("emailErrorMsg").innerHTML = "";
+        }
 
         if (!valid ) {
             
-            kanap_alert (" SVP Vérifier les valeurs correspondantes à :  " +   l_form_err);
+            kanap_alert (" SVP, vérifier les valeurs correspondantes à :  " +   l_form_err);
             return;
         }
        
@@ -516,8 +538,8 @@ function displayCartPage() {
 
 /* =======================================================================================  */
 
-
 trace_line(level_1);
 trace_msg (level_1, scriptName, 'main', 'begin');
 displayCartPage ();
 trace_msg (level_1, scriptName, 'main', 'end');
+/* =======================================================================================  */

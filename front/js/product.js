@@ -1,10 +1,14 @@
 /*
-  The product.js  goal is to add an article  to the 
+  Script : product.js 
+  The product.js  goal is to add an article to the 
   cart / or update the quantity  of an existing article in the cart
   from the product.html page  . 
+  The product.html takes an input paramater that is a product id (id).
+  The product id will be used to fetch details related to this product.
   The article is identifed by  and  id and a color.
 */
 
+/* =======================================================================================  */
 
 const scriptName = 'product.js';
 
@@ -102,15 +106,17 @@ function addToCart  (p_id,
     trace_object (level_1, scriptName, funcName, 'prod_item', prod_item);
 
      /* 1. 0Get the cart from LocalStorage */ 
+      /* ---------------------------------  */
      let l_cart  = getCartFromLocalStorage ();
      trace_object (level_1, scriptName, funcName, 'cart', l_cart);
 
      /* 2. Search Item from Cart */
+      /* ----------------------  */
      let l_cart_item = findCartItemByIdAndColor (l_cart, p_id, p_color);
 
      if ( l_cart_item == null) {
         /* 3.1 add Item to cart */ 
-      
+       /* ---------------------  */
         trace_msg (level_1, scriptName, funcName, " Item not found in Cart -> adding item to Cart ");
          l_cart.push (prod_item);
          setCartToLocalStorage (l_cart);
@@ -119,7 +125,7 @@ function addToCart  (p_id,
      else {
       
         /* 3.2 updating (incrementing) the exsiting item 's quanntity */ 
-      
+        /* ---------------------------------------------------------  */
         trace_object (level_1, scriptName, funcName, 'Item found in Cart ', l_cart_item);
      
         let quantity_res = parseInt(l_cart_item.quantite) +  parseInt (prod_item.quantite);
@@ -174,6 +180,7 @@ function cb_addToCart (event)
   
 
     /* 1. Get Quantity from Dom */
+     /* -----------------------  */
     let quantity_elt = document.getElementById ('quantity');
     let chosen_quantity = quantity_elt.value;
     trace_object (level_1, scriptName, funcName, 'chosen quantity  ', chosen_quantity);
@@ -181,21 +188,23 @@ function cb_addToCart (event)
      trace_object (level_1, scriptName, funcName, 'i chosen quantity  ', i_chosen_quantity);
 
     /* 1. Get Color */ 
-
+     /* ----------  */
     let elt_colors = document.getElementById ('colors');
     let chosen_color = elt_colors[elt_colors.selectedIndex].value;
 
    
     trace_object (level_1, scriptName, funcName, 'selected  color  ', chosen_color);
+
     /* 3. Checkings  :  id, colors, quantity */ 
+     /* ------------------------------------  */
    let alert_msg="";
    if (chosen_color == ""  ) {
-           alert_msg = alert_msg + "SVP Choisissez une couleur";
+           alert_msg = alert_msg + "SVP, choisissez une couleur";
            trace_error (level_1, scriptName, funcName, ' Error: ', 'color not chosen ');
     } 
     
     if (i_chosen_quantity <= 0  || i_chosen_quantity > 100) {
-         alert_msg = alert_msg + "\nSVP Choisissez un nombre d'article entre 1 et 100";
+         alert_msg = alert_msg + "\nSVP, choisissez un nombre d'article entre 1 et 100";
          trace_error (level_1, scriptName, funcName, ' quantity   bad value ', i_chosen_quantity);
     } 
     if (alert_msg !=''){
@@ -205,7 +214,7 @@ function cb_addToCart (event)
     }
     
     /* 4. add to the Cart in  LocalStorage */ 
-    
+     /* ---------------------------------  */
     let article_quantity = addToCart (prod_id,
                chosen_color, 
                i_chosen_quantity, 
@@ -379,20 +388,15 @@ function displayProduct ()
 {
     const  funcName = "displayProduct()";
 
-    /*
-    let url =   getNodeServerURL_Product ();
-
-    trace_object (level_1, scriptName, funcName, 'url', url);
-    */
-    
-
+   
     /* 1. Get  id   from http request  */ 
-    trace_object (level_1, scriptName, funcName, 'Input Http Request', window.location.href);
+    /* ------------------------------  */
 
-  
+    trace_object (level_1, scriptName, funcName, 'Input Http Request', window.location.href);
     let params = new URL(document.location).searchParams;
      prod_id = params.get("id");
     trace_object (level_1, scriptName, funcName, 'Input Product id', prod_id);
+
    if (prod_id == null ) {
        kanap_alert ("Erreur : la requête ne contient pas d\' identifiant d\'article. ");
        trace_error(level_1, scriptName, funcName, 'Input Product id', prod_id);
@@ -408,11 +412,13 @@ function displayProduct ()
    }
 
     /* 2.  Get Product details from backend */ 
+     /* ------------------------------------  */
 
    let pr = http_getProductById (prod_id);
 
 
-   /* 3.  Register addToCart listener */
+   /* 3.  Register cb_addToCart()  listener */
+   /* ------------------------------------  */
 
    trace_object (level_1, scriptName, funcName, 'addListener to Button Ajouter au Panier', 'cb_addToCart');
    const btn = document.getElementById("addToCart");
@@ -423,12 +429,12 @@ function displayProduct ()
 
 /* =======================================================================================  */
 
-
 trace_line(level_1);
 trace_msg (level_1, scriptName, 'main', 'begin');
 displayProduct ();
 trace_msg (level_1, scriptName, 'main', 'end');
 
+/* =======================================================================================  */
 
 
 

@@ -1,12 +1,15 @@
 /*
+
   The script.js  goal is to fetch a list of products 
-  and displayed them in the index page (items section).
+  and displayed them in the index.html page (items section).
 */
 
 
 const scriptName = 'scripts.js';
 
 
+
+/* ===============================================================================  */
 
 /*
     -------------------------------------------------------
@@ -218,3 +221,4 @@ trace_msg (level_1, scriptName, 'main', 'begin');
 displayAllProducts ();
 trace_msg (level_1, scriptName, 'main', 'end');
 
+/* ===============================================================================  */

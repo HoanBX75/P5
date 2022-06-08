@@ -1,8 +1,8 @@
 /*
   Script : utils.js 
-  
+  Common utilities used in the Kanap Java scripts.
      - Kanap Trace / Alert functions 
-     - LocalStoarage functions
+     - LocalStorage functions
      - Node.js functions 
 
 */ 
