@@ -43,7 +43,7 @@ if (param_orderid == localStorage_orderid)
     /*  write order Id in dom */ 
     
     let cmd =   getCommandeFromLocalStorage ();
-    let msg =  `<br> A bientôt  ${cmd.firstName} !` ;
+    let msg =  `<br> <br>  A bientôt  ${cmd.firstName} !` ;
 
     const nbOrder = document.getElementById("orderId");
     nbOrder.innerHTML = param_orderid + msg ;

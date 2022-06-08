@@ -55,6 +55,15 @@ function addlistenerToForm() {
         trace_line(level_1);
         trace_msg  (level_1, scriptName, funcName, 'FORM BUTTON LISTENER' );
 
+        let l_cart = getCartFromLocalStorage();
+        if  (l_cart.length == 0) {
+            trace_msg (level_1, scriptName, funcName,
+                          " Pas de commande, votre panier est vide ! ");
+
+            kanap_alert (" Pas de commande, votre panier est vide ! ");
+            return ;
+        }
+
         let l_formFirstName = document.getElementById("firstName").value;
         let l_formLastName = document.getElementById("lastName").value;
         let l_formAdress = document.getElementById("address").value;
@@ -123,14 +132,7 @@ function addlistenerToForm() {
 
         /* Check the product ids in the order   */
         let product_ids = [];
-        let l_cart = getCartFromLocalStorage();
-        if  (l_cart.length == 0) {
-            trace_msg (level_1, scriptName, funcName,
-                          " Pas de commande, votre panier est vide ! ");
-
-            kanap_alert (" Pas de commande, votre panier est vide ! ");
-            return ;
-        }
+        
 
         for (let cart_item of l_cart){
             trace_object  (level_1, scriptName, funcName, 'Order - cart items id ', cart_item.id);
