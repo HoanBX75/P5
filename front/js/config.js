@@ -147,7 +147,13 @@ function dumpPanier (event){
     trace_line(level_3);
     let select_trace_level =  document.getElementById ("select_trace_level"); 
 
-   
+    /*
+    if (test == 'test1')
+   {
+         dkjkdjf
+   }
+   */
+    
     let traceLevel_value  = select_trace_level.options [select_trace_level.selectedIndex].value;
    /*
     trace  ("cb_setTraceLevel : traceLevel value = ", traceLevel_value);

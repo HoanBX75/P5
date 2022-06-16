@@ -121,6 +121,7 @@ function trace_function_line(level)
 {
    if (level <= getTraceLevel  ()) 
    {
+       
     console.log ('-------');
    }
     
