@@ -72,16 +72,24 @@ function addlistenerToForm() {
         let l_formCity = document.getElementById("city").value;
         let l_formEmail = document.getElementById("email").value;
 
+        trace_msg  (level_2, scriptName, funcName, 'l_formFirstName = ' + l_formFirstName);
+        trace_msg  (level_2, scriptName, funcName, 'l_formLastName = ' + l_formLastName);
+        trace_msg  (level_2, scriptName, funcName, 'l_formAdress = ' + l_formAdress);
+        trace_msg  (level_2, scriptName, funcName, 'l_formCity = ' + l_formCity);
+        trace_msg  (level_2, scriptName, funcName, 'l_formEmail = ' + l_formEmail);
+
    /*
     https://www.codexworld.com/how-to/validate-first-last-name-with-regular-expression-using-javascript/
     */
 
         let l_form_err = " "; 
-        let  regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
-        regName = /^[a-zA-Z]+$/;
+       //  let  regName = /^[a-zA-Z]+ [a-zéA-Z]+$/;
+       let  regName = /^[ a-zA-Z0-9'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s -]+$/g;
          let valid = true;
+
         if(!regName.test(l_formFirstName)){
             if (!valid) l_form_err = l_form_err +", ";
+            trace_msg  (level_1, scriptName, funcName, 'Error : firstname ' );
             valid = false;
             document.getElementById("firstNameErrorMsg").innerHTML = `"${l_formFirstName} n'est pas valide !"`
             l_form_err =   l_form_err + "Prénom";     
@@ -90,8 +98,10 @@ function addlistenerToForm() {
             document.getElementById("firstNameErrorMsg").innerHTML = "";
         }
 
+        regName = /^[ a-zA-Z0-9'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s -]+$/g;
         if(!regName.test(l_formLastName)){
             if (!valid) l_form_err = l_form_err +", ";
+            trace_msg  (level_1, scriptName, funcName, 'Error : Lastname ' );
             valid = false;
             l_form_err =   l_form_err + "Nom";   
             document.getElementById("lastNameErrorMsg").innerHTML = `"${l_formLastName} n'est pas valide !"`
@@ -99,9 +109,11 @@ function addlistenerToForm() {
         else {
             document.getElementById("lastNameErrorMsg").innerHTML = "";
         }
-
+        
+        regName = /^[ a-zA-Z0-9'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s -]+$/g;
         if(!regName.test(l_formCity)){
             if (!valid) l_form_err = l_form_err +",";
+            trace_msg  (level_1, scriptName, funcName, 'Error : city ' );
             valid = false;
             l_form_err =   l_form_err + "Ville ";  
             document.getElementById("cityErrorMsg").innerHTML = `"${l_formCity} n'est pas valide !"`
@@ -110,9 +122,10 @@ function addlistenerToForm() {
             document.getElementById("cityErrorMsg").innerHTML = "";
         }
 
-        let regAdresse = /^[a-zA-Z.0123456789 ]+$/;
-        if(!regAdresse.test(l_formAdress)){
+        regName = /^[ a-zA-Z0-9'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s -]+$/g;
+        if(!regName.test(l_formAdress)){
             if (!valid) l_form_err = l_form_err +",";
+            trace_msg  (level_1, scriptName, funcName, 'Error : adress ' );
             valid = false;
             l_form_err =   l_form_err + "Adresse"; 
             document.getElementById("addressErrorMsg").innerHTML = `"${l_formAdress} n'est pas valide !"`
@@ -122,9 +135,10 @@ function addlistenerToForm() {
         }
 
         
-        let regEmail = /^[a-zA-Z.0123456789]+@[a-zA-Z.]+$/;
+        let regEmail = /^[a-zA-Z0-9ôöáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s-]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/g;
         if(!regEmail.test(l_formEmail)){
             if (!valid) l_form_err = l_form_err +", ";
+            trace_msg  (level_1, scriptName, funcName, 'Error : Email ' );
             l_form_err =   l_form_err + "Email"; 
 
             valid = false;
