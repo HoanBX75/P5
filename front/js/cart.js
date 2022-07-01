@@ -203,12 +203,100 @@ function addlistenerToForm() {
 
         */
 
-         /*  ********** */
-        /*  HTTP  POST  */
-        /*  ********** */
+     
           let post_order_url = getNodeServerURL_Order ();
+          let url_getAll =   getNodeServerURL_AllProducts (); 
            trace_object (level_1, scriptName, funcName, 'post url  ', post_order_url);
 
+/*  -----------------------------------------------------------------    */
+/*  Checking that the Cart item price has not changed                   */   
+/*  -----------------------------------------------------------------    */
+
+        /*  *************** */
+        /*  HTTP  GET ALL   */
+        /*  ************** */
+
+ 
+
+     fetch (url_getAll).then(function(res) {
+
+    /* 1. Callback to handle AllProducts response */ 
+
+    trace_line(level_1);
+    trace_object (level_1, scriptName, funcName,' CallBack 1  http  GET All response', res);
+ 
+      if (res.ok) {
+        return res.json();
+      }
+      else 
+      {
+        throw 'Error ' + res.status + ' ' + res.statusText  +  ' url = ' + url;
+       }
+      
+    })
+    .then(function(value) {
+ 
+     /* 2. Callback to handle body  response (json) */ 
+ 
+     trace_object (level_1, scriptName, funcName,' CallBack 2 http GET http  GET All (json)', value);
+ 
+
+      
+       // Loop on the cart 
+       // ==================
+
+      trace_line(level_2);
+      let isPriceChanged = false;
+      for (let cart_item of l_cart){
+        trace_function_line (level_2);
+        trace_object  (level_1, scriptName, funcName, 'Order - cart item id ', cart_item.id);
+        trace_object  (level_1, scriptName, funcName, 'Order - cart item price ', cart_item.prix);
+
+        let l_prod = value.find ( prod  => prod._id == cart_item.id);
+        trace_object  (level_1, scriptName, funcName, 'prod found  id ', l_prod);
+       
+        // test si le prix de l'item du panier est different de celui du backend 
+        if (l_prod.price != cart_item.prix)  {
+            cart_item.prix = l_prod.price;
+            isPriceChanged = true;
+       }
+      } // end of loop 
+
+    trace_line(level_2);
+
+    // Test si un prix a été changé 
+    if (isPriceChanged) {
+          // Change the cart items with the new  prices  and refresh the cart page 
+          trace_msg  (level_1, scriptName, funcName, 'Prices have changed  ');
+          setCartToLocalStorage (l_cart);
+          displayCartPage ();
+
+          throw 'Les prix Kanap ont changé.\n' 
+          + 'Merci de revalider votre panier avec les nouveaux tarifs et commander.\n ';
+          
+           return ("NOK");
+    }
+    else {
+       // No price change 
+       trace_msg  (level_1, scriptName, funcName, 'Prices have Not changed  ');
+    }
+
+      return ("OK");
+     
+    })
+ .then ( resall => {
+    
+    trace_object (level_1, scriptName, funcName, 'resall ', resall);
+         
+/*  -----------------------------------------------------------------    */
+/*  Getting the Order Id                                                */   
+/*  -----------------------------------------------------------------    */
+
+
+
+      /*  ********** */
+        /*  HTTP  POST  */
+        /*  ********** */
 
         fetch(post_order_url , {
             method: "POST",
@@ -259,9 +347,9 @@ function addlistenerToForm() {
             trace_object (level_1, scriptName, funcName, ' contact  = ',  
                      contact_firstname + '_' +contact_firstname );
 
-            
-            /* go the confirmation page */ 
-            /* ------------------------- */
+/* -------------------------------------------------------------------  */            
+/* Go the confirmation page                                            */ 
+/* -------------------------------------------------------------------  */            
             l_url =  `./confirmation.html?id=${orderId}` ;
             trace_object (level_1, scriptName, funcName, 'loading confirmation page ', l_url);
 
@@ -277,11 +365,31 @@ function addlistenerToForm() {
             kanap_alert (error); 
         });
 
-    });
+    }) /* then du fetch all */ 
+    .catch(function(err) {
+ 
+        /* Display an alert if error is detected */
+   
+        let err_msg = ' Kanap message : '
+        trace_error (level_0, scriptName, funcName, err, 
+                      err_msg);
+        kanap_alert (err_msg + '\n' + err);
+   
+      });
+
+
+
+    /* */
+    });   // end click command button  listener 
     trace_msg  (level_1, scriptName, funcName, 'end' );
 }
 
-
+/*
+async  function check_prices ()
+{
+     return "good ";
+} 
+*/
 
 /*
     -------------------------------------------------------

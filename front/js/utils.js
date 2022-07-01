@@ -241,6 +241,8 @@ function getCartFromLocalStorage ()
     let cart_items = null;
     let s_cart = localStorage.getItem("cart");
   
+    trace_object  (level_4, scriptName, funcName, 's_cart  ', s_cart );
+
    
     if  (s_cart == null) {
         cart_items = new  Array ();
@@ -251,11 +253,71 @@ function getCartFromLocalStorage ()
         trace_msg (level_1, scriptName, funcName, 'Cart found in LocalStorage'); 
         cart_items = JSON.parse (s_cart);
     }
-  /*
-    trace_object  (level_4, scriptName, funcName, 'Cart items  ', cart_items );
-    */
+
+    /* 
+       verification du prix du canapé 
+       XXXX
+    */ 
+
+  /*     
+       trace_object  (level_4, scriptName, funcName, 'Cart items  ', cart_items );
+
+
+       for (let l_cart_item of cart_items )
+       {
+          trace_line ();
+           trace_msg  (level_4, scriptName, funcName, 'before  XXXXXXXXXXXX   ' );
+       
+           getFromBackend_ItemPrice(l_cart_item).then (
+              price => {
+                trace_object  (level_4, scriptName, funcName, ' Item_price  ', price );
+              }
+           );
+           trace_msg  (level_4, scriptName, funcName, 'after  YYYYYYYYYYY  ' );
+           trace_line ();
+       }
+*/
+       
+
+  
     return (cart_items);
 }
+
+ 
+
+
+async  function  getFromBackend_ItemPrice  (cart_item) 
+{
+    console.log ("==============================================================");
+    const  funcName = "getFromBackend_ItemPrice()";
+    trace_object  (level_1, scriptName, funcName, ' l_cart_item', cart_item );
+    let prod_id = cart_item.id;
+    let url = getNodeServerURL_Product (prod_id);
+
+    trace_msg  (level_4, scriptName, funcName, '  await fetch begin  ' );
+    let response = null;
+    let prod = null;
+    try {
+     response = await fetch(url);
+    }
+    catch (e) {
+        console.error('meaningOfLife() a rapporté une erreur:', e);
+    }
+    trace_msg  (level_4, scriptName, funcName, '  await json begin  ' );
+    try {
+         prod = await response.json();
+        }
+        catch (e) {
+            console.error('meaningOfLife() a rapporté une erreur:', e);
+        }
+  
+
+    trace_object  (level_1, scriptName, funcName, 'prod  id  ', prod._id );
+    trace_object  (level_1, scriptName, funcName, 'prod  id  ', prod.price );
+    console.log ("==============================================================");
+    return (prod.price);
+}
+
 
 
 function getTotalPriceFromLocalStorage ()
@@ -276,7 +338,7 @@ function getTotalPriceFromLocalStorage ()
     return l_total_price;
 }
 
-
+/* ===================== */
 
 /* ===================== */
 
