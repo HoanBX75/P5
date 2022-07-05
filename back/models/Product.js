@@ -1,5 +1,5 @@
 
-const products1 = [
+const products = [
   {
     "colors": ["Blue", "White", "Black"],
     "_id": "107fb5b75607497b96722bda5b504926",
@@ -75,7 +75,7 @@ const products1 = [
 ];
 
 
-const products = [
+const products2 = [
   {
     "colors": ["Blue", "White", "Black"],
     "_id": "107fb5b75607497b96722bda5b504926",
